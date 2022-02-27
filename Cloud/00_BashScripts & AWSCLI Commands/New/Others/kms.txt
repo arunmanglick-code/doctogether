@@ -1,0 +1,31 @@
+ 
+ - First go to AWS and Create a CMK using UI
+ - OR you can create using CLI -  
+	- aws kms create-key --description "AM CMK"
+	- Then create alias
+		- aws kms create-alias target-key-id <paste keyid got from above command output> --alias-name "alias/AMCMK"
+
+ - Now List Keys:
+	- aws kms list-keys
+
+ - Then connect any EC2 and use below commands to encrypt and decrypt a file.
+    - echo "This is plain text file" > plain.txt
+    - aws kms encrypt --key-id "alias/AMCMK" --plaintext file://plain.txt --output text --query CiphertextBlob
+    - aws kms encrypt --key-id "alias/AMCMK" --plaintext file://plain.txt --output text --query CiphertextBlob | base64 --decode > plain.txt.encrypted
+
+    - aws kms decrypt --ciphertext-blob fileb://plain.txt.encrypted --output text --query Plaintext 
+    - aws kms decrypt --ciphertext-blob fileb://plain.txt.encrypted --output text --query Plaintext | base64 --decode
+
+
+ To encrypt anyfile greater than 4KB, you need to use Data Key
+	- aws kms generate-data-key --key-id "alias/AMCMK" --key-spec AES_256
+	- Output:
+		- Plaintext: DataKey
+		- KeyId: KeyId of the CMK Key (Generated in first step)
+		- CiphertextBlob : Encrpyed version of file. This also has meta data which tells which CMK was used to generate.
+
+		- Note: Here you shud delete Plaintext Datakey, so that noone can decrypt data. This is called as Envelop Encryption
+		
+
+
+

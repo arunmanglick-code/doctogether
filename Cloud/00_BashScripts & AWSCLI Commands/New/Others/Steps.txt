@@ -1,0 +1,63 @@
+https://458077907105.signin.aws.amazon.com/console
+
+Step 0: Setting Up Environment
+ - Create Group with Administrator Access
+ - Create an IAM User (AMJohn)
+ - Create a Key Pair
+ - Configure a Virtual Private Cloud (VPC) - Skipped
+
+Step 1: Create an Application Server
+ - Create a Security Group for Your Amazon EC2 Instance (AMJohnSG)
+ - Create an IAM Role
+ - Launch Your EC2 Instance
+ 
+Step 2: Create a Database Server
+ - Create a Security Group for Your DB Instance (AMJohnSG_DB)
+ - Launch a DB Instance
+	- Create DB Subnet (AMJohnSubnet_DB) with 2 AZs
+	- Create MySQL DB (AMJohnDB) (Note: Ensure Multi-AZ = Yes)
+
+Step 3: Deploy Your App
+Deploy the app to your EC2 instance by completing the following tasks. 
+For this tutorial, you'll install Drupal and create a test page.
+
+ - Connect to Your Linux Instance
+	 ec2-user@ec2-52-39-217-93.us-west-2.compute.amazonaws.com
+ - Configure the EC2 Instance
+	- Start the Web Server
+		sudo yum update -y
+		sudo yum install -y httpd24 php56 mysql55-server php56-mysqlnd php56-mbstring php56-gd php56-opcache
+		sudo service httpd start
+		sudo chkconfig httpd on
+		
+    - Install the App (Using Drupal)
+		wget http://ftp.drupal.org/files/projects/drupal-8.1.2.tar.gz
+		tar -xzvf drupal-8.1.2.tar.gz
+		cd drupal-8.1.2/
+		mkdir sites/default/files
+		cp sites/default/default.settings.php sites/default/settings.php
+		sudo rsync -avh . /var/www/html/
+		sudo chown -R apache /var/www
+		sudo vim /etc/httpd/conf/httpd.conf
+		AllowOverride All
+		sudo service httpd restart
+		
+    - Configure Drupal
+		- Browse by your DNS Name
+		- This will open Drupal Screen
+		- 	
+    - Test the Website
+		- Browse by your DNS Name
+	
+ - Create a Custom AMI
+	- Image Name (AMJohn_AMI)
+ 
+
+ 
+ 
+
+
+	
+	
+ 
+ 

@@ -1,0 +1,133 @@
+
+Lecture 109:
+
+ - Create S3 Bucket - Code Bucket
+ - Create Another S3 Bucket - Images
+ - Create CloudFront - For Images S3 Bucket
+ - Create Security Group -  WebDMZ - Allow HTTP & SSH
+ - Create Security Group -  RDS - Allow MySQLArora - At Port 3306 and From above SG - WebDMZ
+ - Create RDS - MySQL DB
+ - Create Role - AmazonS3FullAccess
+ - Create EC2
+	- With above created Role and 
+	- Adding Bash Script - 'High Availability_Lec109_WordPressSite.sh'
+	- SG as WebDMZ 
+
+Lecture 110:
+ - Connect EC2 created above
+ - Start Apache - service httpd start
+ - Browse EC2 and Then Connect WordPress Site to RDS created above. Then Install WordPress and Browse Site.
+ - You'll be on WordPress Site Now. 
+ - You can create some Post and upload two images - Image1, Image2
+ - Go to SSH window. Type
+	- cd wp-content
+	- ls
+	- cd 2019
+	- ls
+	- cd 02
+	- ls
+	- You'll find added images here
+
+  - To add more resilency - Whenver someone uploads image, that image shud also be stored in S3 Bucket 
+	- cd /var/www/html
+	- type: aws s3 ls  - (Verify s3 bucket exist)
+	- type: aws s3 cp --recursive /var/www/html/wp-content/uploads <s3 Image Bucket name>
+
+  - To add more resilency of entire wordpress site
+	- type: aws s3 cp --recursive /var/www/html/ <s3 Code Bucket name>
+	- To verify if site is copied type - aws s3 ls <s3 Code Bucket name>
+	- To check if Ec2 is healthy, type - cat healthy.html
+
+   - Another 
+	- Type: nano .htaccess
+	- update url rewrite rule to upload wp-content/uploads content to CloudFront created above.
+	- Sync Wordpress Site again to S3 Code Bucket -aws s3 sync /var/www/html <s3 Code Bucket name>
+
+	
+    - Now still we need Apache to allow url rewrite
+	- type: cd /etc/httpd/conf  
+	- type: nano httpd.conf (It has somewhere 350+ lines)
+	- Search & update - AllowOverride None to AllowOverride ALL
+	- Come out and type: service htttp restart
+
+    - Update Image Bucket Policy
+	- Find Policy in File - CSA_S8_L7_BucketPolicy.txt
+	- Just replace bucket name with Image Bucket Name
+	- Also make sure Image Bucket is also public
+
+     - Create Application Load balancer and put our Ec2 in back of Load Balancer
+	- Select all three AZs
+	- Choose SG as WEbDMZ
+	- Also put in Target Group
+
+      - Create Route53
+	 - Choose ELB Created Above 
+	
+      - Go to EC2 (To push this behind ELB)
+	- Edit Targets and 
+	- Choose Target Group Created Above
+
+      - Now Go to Browser using Route53 Domain Name
+
+Lecture 111: Resileency & Autoscaling
+  (This lab scope is to have two Ec2 Instance - One directly accessible to Route 53 and one behind a domain name. 
+   However Route53 shud redirect all accesses to Ec2 with domain name. Also any changes made to first ec2, shuld be synced to S3 using cron jobs)
+
+	- On existing Ec2 Instance
+	- Type: cd /etc
+        - nano crontab  (Note crontab is to run commands on schedule - Daily/Weekly/Monthly etc.)
+        - Type: */1 * * * * 	aws s3 sync --delete <S3 Code Bucket name> /var/www/html (Every Min we need any data pushed to S3 to be copid to Ec2)
+        - Type: service crond restart
+	
+	- Build AMI of existing Ec2
+		- Go to Ec2 and Choose Create Image 
+		- Agin go to CLI:
+			- Type: cd /etc
+			- nano crontab
+			- Type: */1 * * * * 	aws s3 sync --delete /var/www/html  <S3 Image Bucket name> (Every Min we need any data pushed to Ec2 to be copid to S3)
+			- Type: */1 * * * * 	aws s3 sync --delete /var/www/html/wp-content/loads  <S3 Image Bucket name> 
+ 			- Type: cd /var/www/html
+			- Type: echo "This to test sync command"  > TestSync.txt
+			- Type: service crond restart
+			- Type: service httpd restart
+			- To verify go to S3 and you shud find TestSync.txt created
+
+	- Build Autoscaling
+		- Go to Scaling Group
+		- Create Launch Configuration
+		- This time choose AMI created above	
+		- Give Role created above (AmazonS3FullAccess)
+		- Use below bash script
+			#!/bin/bash
+			yum update -y
+			aws s3 sync --delete s3://<S3 Bucket Name> /var/www/html  (Copy content to existing S3 bucket to the new instance whenever created by AutoScaling Group)
+		- Use same SG as created above
+		- Create AutoScaling Group - Using above Lauch Config
+			- Choose all three subnet
+			- Choose Load Balancer using the Target Group Created
+			- Choose ELB Health Check
+			- Create
+		- Go to Target Groups
+			- Delete Existing Target Group (So that Route53 does not go to first Ec2 Instance)
+		- Go to Ec2 - You'll find two more Ec2 Instances 
+		- Browse by Domain Name
+			- See WordPress Site
+			- Create More Posts
+	
+	- Test Auto Scaling Group
+		- Terminate one of Ec2 instance created using AutoScaling Group
+		- 
+
+
+			
+
+
+
+
+
+
+
+
+
+
+ 

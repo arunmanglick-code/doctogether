@@ -1,0 +1,28 @@
+
+Lecture 104:
+ - Create two Separate EC2 Instance - Please both nin diff Subnet
+ - Use the bashscript as given - Install Apache
+ - Browse them seperately and verify working
+
+ - Create Classic Lead Balancer and choose these two instances
+ - Later Browse with ELB Name and you'll notice traffic redirection to both in adhoc manner.
+
+ - Also you can create - Target Group (Watch video 104)
+-------------------------------------
+
+Auto Scaling:
+ 
+ - Choose Launch Configuration
+ - And Create Auto Scaling
+ - Choose Min:3, Max:6
+ - Choose Condition as CPU: 80%
+ - Launch
+ - This will create 3 EC2 Instances
+
+ To Test, delete one or two instances. You'll find Ec2 instances getting created automatically.
+-----------------------------------------------------
+Cloud Formation:
+
+ - Create WordPRess - Pre-Created Template
+ - This will easily create Cloud Formation
+------------------------------------------------------

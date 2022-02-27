@@ -1,0 +1,10 @@
+ 
+ - SSH into Ec2 Instance
+ - Type: sam init
+ - Choose Template - Quick Start Template
+ - Choose Runtime
+ - Choose Sample Application
+ - Type: cd sam-app/
+ - Type: vim template.yaml
+ - Rest all go thru Video
+--------------------------------------------

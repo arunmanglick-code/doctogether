@@ -1,0 +1,57 @@
+#!/bin/bash
+yum install httpd -y
+yum update -y
+aws s3 cp s3://manglickbucket/ /var/www/html --recursive
+chkconfig httpd on
+service httpd start
+chkconfig httpd on
+
+---------------
+#!/bin/bash
+yum install httpd -y
+yum update -y
+aws s3 cp s3://manglickbucket/index.html /var/www/html/
+chkconfig httpd on
+service httpd start
+chkconfig httpd on
+-------------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+yum update -y
+echo "Hello Route53" > /var/www/html/index.html
+-----------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+yum update -y
+echo "Hello ELB Index Page" > /var/www/html/index.html
+echo "Hello ELB HealthCheck Page" > /var/www/html/healthcheck.html
+-----------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+yum update -y
+echo "Hello Launched from ASG" > /var/www/html/index.html
+-------------------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+yum update -y
+echo "Hello VPC - Public Subnet" > /var/www/html/index.html
+-------------------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+yum update -y
+echo "Hello VPC - Private Subnet Thru Wizard" > /var/www/html/indexprivate.html
+--------------------------
+
+#!/bin/bash
+yum install httpd php php-mysql -y
+yum update -y
+chkconfig httpd on
+service httpd start
+

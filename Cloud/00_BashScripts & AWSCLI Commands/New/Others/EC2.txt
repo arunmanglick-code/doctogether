@@ -1,0 +1,82 @@
+Basic Connect
+---------------------
+- Click on Connect Button 
+- This will open SSF in browser
+- Type: sudo su  (To bring to root)
+
+Chrome Extension Conect
+-----------------------
+ - Download Chrome Extesnion 'Secure Shell App'
+ - Open Extesnion
+ - Enter USer as 'ec2-user' and Public IP
+ - Enter Public Key
+	 - To generate Public key from Private .pem file
+	 - Go to CMD
+	 - Type ssh-keygen -y -f AMEC2KeyPair.pem > AMEC2KPPublic.pub
+	 - Rename private key to without extenstion as : ren AMEC2KeyPair.pem AMECEKeyPair
+	 - Select both keys over extension page
+  	 - Hit Connect
+
+
+Post Connect and Verification, you can use below commands:
+
+1). Connect to Putty Session (Or Directly thru Connect)  - Ignore
+2). Type: sudo su  (To bring to root)
+2). Type: yum update -y (Update Operating System)
+3). Type: yum install httpd -y (To install Apache Server)  (To install php:  yum install httpd php php-mysql -y)
+4). Type: service httpd status (To check Apache Server Status)
+5). Type: service httpd start
+6). Type: chkconfig httpd on (To start this service automatically next time)
+7). Type: cd /var/www/html (To go to html folder in appache server)
+8). Type: nano index.hmtl  (Write any text in html file)
+9). Type: ls (To see html file)
+10). Browse in browser - http://54.200.5.177/
+
+---------------------------------------------------
+Lab 38 - Move Root EBS Volume from One Az to Another
+
+ - Go to EC2 & Check for EBS Root Volumne
+ - Create Snapshot
+ - Create AMI (Image) from above Snapshot
+ - Launch EC2 from this AMI 
+ - Choose different Subnet this time. (E.g. us-east2-a)
+
+Lab 38 - Move Root EBS Volume from One Region to Another
+
+ - Go to EC2 & Check for EBS Root Volumne
+ - Create Snapshot
+ - Create AMI (Image) from above Snapshot
+ - Copy AMI (Image) to another region
+ - Launch EC2 from this AMI 
+----------------------------------------------------------------------
+Lab 41 - Create EC2 Instance With Encrypted Root EBS Volume
+ - Latest - Now  EBS Volume can be encrypted while created EC2 Instance
+ - Old Way - This was not possible and required below steps to carry.
+	- Create Snapshot of Un-Encrypted EBS Volume
+	- Make a copy and this time use 'Encryprtion'
+ 	- Create Image from the copied Snapshot
+	- Launch Instance from this new Image
+----------------------------------------------------------------------
+Lab 49 - Bootstrap Scripts
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+echo "<html><h1>Hello Cloud Gurus Welcome To My Webpage</h1></html>"  >  index.html
+aws s3 mb s3://ams3bucketusingbashscript
+aws s3 cp index.html s3://ams3bucketusingbashscript
+----------------------------------------------------------------------
+Lab 50 - EC2 Metadata:
+ - curl http://169.254.169.254/latest/user-data
+ - curl http://169.254.169.254/latest/meta-data
+ - curl http://169.254.169.254/latest/local-data/local-ipv4
+ - curl http://169.254.169.254/latest/local-data/public-ipv4
+
+
+----------------------------------------------------------------------
+
+
+ 

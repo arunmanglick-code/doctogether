@@ -1,0 +1,10 @@
+- Check Video
+ 	- Create Policy
+	- Create Role (EC2) and Attach  Above Created Policy to Role
+	- Now you can create EC2 with this role and you'll be able to do as in given Policy.
+
+- Check Video
+	- Create a Role - E.g. AdminFullAccess
+	- Add Permission to the role (while creation) - E.g. Only DynamoDB
+
+-------------------------------------------------------------------------------

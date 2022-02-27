@@ -1,0 +1,45 @@
+
+ - Create three Separate EC2 Instance in Irish, Sidney & Ohio
+ - Use the bashscript as given - Install Apache
+
+ - Note down IPs of all three EC2
+
+Simple Routing:
+ - Go to Route53
+ - Create Hosted Zone (Use ruchiscrafeteria.com)
+ - Create Record Set (All IPs of all three EC2 Instances)
+
+ - Now go to Browser -  'ruchiscrafeteria.com' 
+ - Keep hitting Refresh - You'll notice traffic keeps moving to different Servers)
+
+
+Weighted Routing:
+ - Go to Route53
+ - Create Hosted Zone (Use ruchiscrafeteria.com)
+ - Create Record Set - Three Separately for three EC2 Instances - Apply weight based on your convenience.
+
+ - Now go to Browser -  'ruchiscrafeteria.com' 
+ - Keep hitting Refresh - You'll notice traffic keeps moving to different Servers)
+
+ - You can also create Health Checks for all three instances.
+
+
+Latency Routing:
+ - Similarly you can create Latency based. 
+ - Here then depending on your browsing location, respective Servers will be picked up
+
+
+Fail-Over Routing:
+ - Similarly you can create Fail OVer based. (Create two Instances only. Use one for Primary Record Set and other for Secondary)
+ - Then browse, you'll find traffic to Primary.
+ - To test, disable Ec2 tied to Primary Record Set
+ - Then browse, you'll find traffic moving  to Secondary
+
+Geo-Location Routing:
+ - This works when you want your users browses from a particular location, should go to a particular instance.
+ - Create Create Record Set for instance in Sydney and mention SetId - Australia
+ - Similarly Create Create Record Set for instance in Irish and mention SetId - European
+ - Then browse from near Syndey, traffic will to to Syndey Server
+--------------------------------------------------------------------------------------
+
+ 	

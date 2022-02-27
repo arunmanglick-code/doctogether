@@ -1,0 +1,15 @@
+Sign-in URL for IAM users in this account:
+	https://791309171132.signin.aws.amazon.com/console
+	https://arunmawsnew.signin.aws.amazon.com/console
+
+
+Root Account Name: arunmanglickawsnew
+Email: arunmanglickawsnew@gmail.com
+https://arunmawsnew.signin.aws.amazon.com/console
+
+Username: arunawsnew
+Group: AMDeveloper
+Tags: AMIAM/AMIAM
+Role: AMS3FullAccess
+
+

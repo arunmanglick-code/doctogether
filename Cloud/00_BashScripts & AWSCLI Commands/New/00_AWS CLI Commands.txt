@@ -1,0 +1,32 @@
+# To know configuration of logged in user and it's region
+aws configure list 
+
+# Configure AWS
+aws configure
+
+# Set Profile
+aws configure --profile anyname
+
+
+# To List the S3 Bucket 
+aws s3 ls s3://<S3bucketName>
+
+# To copy the files from EC2 to S3
+aws s3 cp <Fully Qualified Local filename> s3://<S3BucketName>
+
+# To copy the files from S3 to EC2
+aws s3 cp s3://<S3BucketName> <Fully Qualified Local filename/Directory>
+or
+wget File Object URL  (Sample - https://amdevcode.s3.us-east-2.amazonaws.com/mywebapp.zip )
+
+# To List DynamoDB Tables
+aws dynamodb list-tables   (If any error your find, check this page - https://forums.aws.amazon.com/thread.jspa?threadID=310448)
+
+# To know logged in user after aws configure
+aws iam get-user
+
+# To know configuration of logged in user and it's region
+aws configure list 
+
+
+

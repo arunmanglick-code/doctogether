@@ -1,0 +1,54 @@
+Below we tried with IAM.
+Similar is doen thru AWS Resource Access Manager - Lecture 72 (Associate SA Course)
+Check Video to learn.
+
+---------------------------------------------------
+Main Root Account Name: arunmanglickawsnew
+Email: arunmanglickawsnew@gmail.com
+https://arunmawsnew.signin.aws.amazon.com/console
+Account ID: 791309171132 
+
+Username: arunawsnew
+Group: AMDeveloper
+Tags: AMIAM/AMIAM
+Role: AMS3FullAccess
+Role: AMCrossAccountS3FullAccess (For Cross Account)
+-----------------------------------
+Cross Root Account Name: arunmanglickawscrossaccountgep
+Email: arun.manglick@gep.com
+Account ID: 663961736912
+https://663961736912.signin.aws.amazon.com/console
+
+IAM UserName - arunawscross
+User ARN: arn:aws:iam::663961736912:user/arunawscross
+
+Switch Role Link - https://signin.aws.amazon.com/switchrole?roleName=AMCrossAccountS3FullAccess&account=arunmawsnew
+------------------------------------------------------------------------
+
+Steps:
+ - Have Two Accounts
+ - Login to Primary Account - 
+	- Create Role for Cross Account Access - AMCrossAccountS3FullAccess
+ - Login to Secondary Account
+	- Create User (Using Root)  - 'arunawscross'
+   	- Create Group (Admin Access Policy) & Add USer to the group
+ - Logout
+ - Login to Secondary Account - Using User Name (Created Above)
+	- Account Alias - 663961736912
+	- User Name - arunawscross
+ 	- After Login
+		- Click Switch Role
+		- Add Details of Account and Role Created in Main Account
+			- Account - 663961736912
+			- RoleName - AMCrossAccountS3FullAccess
+		- Go to S3- You'll find bucket created in Main Account
+		- Go to any other services - You'll not be able to access them as Role (AMCrossAccountS3FullAccess) given has access to only S3.
+
+  
+
+-------------------------------------------------------------------------
+
+
+	
+
+

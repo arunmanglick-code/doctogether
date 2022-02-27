@@ -1,0 +1,122 @@
+	
+Check - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html?icmpid=docs_ec2_console
+
+Start PuTTY (from the Start menu, click All Programs > PuTTY > PuTTY).
+
+In the Category pane, select Session and complete the following fields:
+1). In the Host Name box, enter: ec2-user@ec2-54-200-5-177.us-west-2.compute.amazonaws.com
+2). In the Category pane, expand Connection, expand SSH, and then select Auth. Complete the following:
+
+Click Browse.
+
+Select the .ppk file that you generated for your key pair, and then click Open.
+
+(Optional) If you plan to start this session again later, you can save the session information for future use. Select Session in the Category tree, enter a name for the session in Saved Sessions, and then click Save.
+
+Click Open to start the PuTTY session.
+------------------------------------------------
+
+Appache Server Install:
+---------------------
+1). Connect to Putty Session
+2). Type: sudo su  (To bring to root)
+2). Type: yum update -y (Update Operating System)
+3). Type: yum install httpd -y (To install Apache Server)  (To install php:  yum install httpd php php-mysql -y)
+4). Type: service httpd status (To check Apache Server Status)
+5). Type: service httpd start
+6). Type: chkconfig httpd on (To start this service automatically next time)
+7). Type: cd /var/www/html (To go to html folder in appache server)
+8). Type: nano index.hmtl  (Write any text in html file)
+9). Type: ls (To see html file)
+10). Browse in browser - http://54.200.5.177/
+
+	
+
+Volumn & Snapshots:
+---------------------
+1). Connect to Putty Session
+2). Type: lsblk  (This will show you existing volume)
+3). Create another and volume and attach it to EC2 instance
+4). Type: lsblk  (This will show you existing & your newly created volume)
+5). Type: file -s /dev/xvdf (To check any filesystem exists on the newly created volume. This shows 'data' that means no filesystem exists)
+6). Type: mkfs -t ext4 /dev/xvdf (To create filesystem of linux type 'ext4' on new volume)
+7). Type: mkdir /fileserver_AM (To create directory on this new filesystem)
+8). Type: mount /dev/xvdf /fileserver_AM (To mount volume to new filesystem)
+9). Type: cd /fileserver_AM (To move to this directory)
+10).Type: ls (To check if anything exists. This shows default directory 'lost+found')
+11).Type: rm -rf lost+found/ (To remove the default directory)
+12).Type: ls (To check if anything exists. This shows nothing this time)
+13).Type: nano HelloWorld.txt (To create file)
+14).Type: nano HelloWebPage.html (To create file)
+15).Type: ls (This will show two new files created)
+---------------
+16).Type: cd .. (To go back to volume)
+17).Type: umount /dev/xvdf (To unmount volume from the filesystem)
+18).Type: cd /fileserver_AM (To move to directory)
+19)Type: ls (To check if any file exists. This will show nothing)
+20).Type: cd .. (To go back to volume)
+-------------------
+Follow few more steps from Video:
+- Detach Volume
+- Create Snapshot
+- Create Volume within Snapshot
+- Attach this volume with EC2
+---------------------
+21).Type: lsblk  (This will show you existing & your newly created volume)
+22).Type: file -s /dev/xvdf (To check any filesystem exists on the newly created volume)
+23).Type: cd /fileserver_AM (To move to this directory)
+24).Type: ls (To check if anything exists. This shows nothing)
+25).Type: mount /dev/xvdf /fileserver_AM (To mount volume to new filesystem)
+26).Type: cd /fileserver_AM (To move to this directory)
+27).Type: ls (This will show two new files created)
+
+---------------------------------------------------------------------------
+Connect Private Subnet From Public Subnet (Using Putty)
+ - Connect to Public Subnet using PuTTY
+ - Create New .pem File: 
+	- nano anyfilename.pem
+	- copy the content of key-pair .pem file (created earliar to connect e2 in public subnet) here and save 
+ - Enhance priviledges: chmod 0600 anyfilename.pem
+ - Connect private ec2 as: ssh ec2-user@privateip -i anyfilename.pem
+ - Test private ec2: yum update -y (Works will if NAT is configured)
+ 
+ ---------------------------------------------------------------------------
+
+VPC:
+---------------------
+1). Connect to Putty Session
+2). Type: sudo su  (To bring to rood)
+3). 
+
+
+Access Key - Lecture 35
+----------------
+
+1). Connect to Putty Session
+2). Type: sudo su  (To bring to root)
+2). aws s3 ls
+3). cd ~
+4). ls
+5). cd .aws
+6). ls
+7). nano credentials
+
+
+Few more commands:
+---------------------
+1). ls -a (To show hidden files)
+2). curl http://169.254.169.254/latest/meta-data (To review meta-data of EC2)
+3). curl http://169.254.169.254/latest/meta-data/hostname > metadata.html (To copy conents into a file)
+4). echo "HelloWebPage" > /var/www/html/index.html
+
+
+
+
+	
+
+
+
+
+
+
+

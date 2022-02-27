@@ -1,0 +1,49 @@
+Site Reference - https://developer.amazon.com/en-US/docs/alexa/custom-skills/speech-synthesis-markup-language-ssml-reference.html#audio
+
+ - Lab Scope - 
+	- Create S3 Bucket (Make it Public)
+	- Also add bucket policy as in resource section
+
+	- Go to Amazon Polly
+		- Add some text
+		- Click Button - Synthesis to S3
+		- Add S3 Bucket Name - Created Above
+		
+	- Now go to Lambda
+		- Create using AWS Serverless Application Repository
+		- Choose Alexa Node JS Fact Skills
+		- Add Trigger as Alexa Skill Set
+		- Click Deploy
+
+	- Now go to https://developer.amazon.com/
+		- Create a Skill
+		- Choose Fact Skill & Specify Skill Invocation Name
+		- Specify EndPoint as Lambda ARN (Created Above)
+		- Add utternace as 'cloud fact'
+		- Now Build Model
+		- Now Test using Test Tab
+			- Choose development
+			- Type 'cloud fact'
+			- You'll see Alexa  starts reading content posted in LAmbda
+
+
+	- Modify Lambda
+		- Add S3 Path
+		- Now play Alexa, you'll find Alexa starts reading S3 Content, which is synthesis to S3 (As above)		
+
+-----------------------------------------------------
+What Are Alexa Skills?
+Skills are like apps for Alexa, and provide a new channel for your content and services. 
+Skills let customers use their voices to perform everyday tasks like checking the news, listening to music, playing a game, and more. 
+Organizations and individuals can publish skills in the Alexa Skills Store to reach and delight customers on hundreds of millions of Alexa devices.
+
+The Alexa Skills Kit (ASK) provides self-service APIs and tools that you can use to build Alexa skills. 
+You can also hire an agency with Alexa expertise to help your organization build a skill.
+
+
+
+
+
+
+
+

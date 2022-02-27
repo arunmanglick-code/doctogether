@@ -1,0 +1,10 @@
+C:\Arun.Manglick\Arun.Manglick.EDU\SIPL_USA\Cloud Computing\AWS Solution Architect - Associate\00_Development\04_Lambda\03_Thumbnail>
+aws lambda invoke-async --function-name MakeThumbnail --invoke-args TestS3Event.txt
+
+
+
+Output:
+---------------
+{
+    "Status": 202
+}

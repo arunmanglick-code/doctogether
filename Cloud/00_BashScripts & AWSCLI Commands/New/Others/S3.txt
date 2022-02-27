@@ -1,0 +1,3 @@
+BucketName: arunms3bucket
+Versioning Rule: AMS3Rule
+

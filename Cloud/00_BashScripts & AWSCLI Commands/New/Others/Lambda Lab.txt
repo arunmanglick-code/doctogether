@@ -1,0 +1,26 @@
+
+ - Lab Scope - 
+	- Request With Domain Name (Registered with Route53)
+	- Return S3 Bucket Url
+	- Call Bucket URL 
+	- Return Static Web Page Url
+	- Call Static Web Page
+	- Shows Button 
+	- Click Button
+	- This will call API Gateway
+	- API Gateway will further call Lambda
+	- Lambda will return Content
+
+	- Go to Lambda
+		- Create Lambda
+		- Create API Gateway as Internal Trigger
+		- Create S3 Bucket and Enable as Static WEbsite
+		- Mention Index.html and Error.html
+		- Copy these two files in S3.
+	
+	  To verify, then browse thru S3 Website, click on given button, you'll see response from Lambda.
+
+	- Add Route53, choose S3 Website.
+	- Now you can browse thru, domain name and you'll see response from Lambda
+
+-----------------------------------------------------
